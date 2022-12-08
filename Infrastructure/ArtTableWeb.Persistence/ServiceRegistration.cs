@@ -1,7 +1,11 @@
 ﻿using ArtTableWeb.Application.Repositories;
+using ArtTableWeb.Application.Services;
+using ArtTableWeb.Application.Services.Authentications;
 using ArtTableWeb.Domain.Entities;
+using ArtTableWeb.Domain.Entities.Identity;
 using ArtTableWeb.Persistence.Contexts;
 using ArtTableWeb.Persistence.Repositories;
+using ArtTableWeb.Persistence.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -22,6 +26,16 @@ namespace ArtTableWeb.Persistence
             //hangi veritabanıyla çalışacaksak onun kütüphanesini yüklüyoruz.
             services.AddDbContext<ArtTableWebDbContext>(options => options.UseSqlServer(Configuration.ConnectionString),ServiceLifetime.Singleton);
             //IOC Conteiner ' da ICustomerReadRepository istendiğinde, CustomerReadRepository dönder.
+
+            services.AddIdentity<AppUser, AppRole>(options =>
+            {
+                options.Password.RequiredLength = 3;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireDigit = false;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireUppercase = false;
+            }).AddEntityFrameworkStores<ArtTableWebDbContext>();
+
             services.AddSingleton<ICustomerReadRepository,CustomerReadRepository>();
             services.AddSingleton<ICustomerWriteRepository,CustomerWriteRepository>();
 
@@ -48,6 +62,13 @@ namespace ArtTableWeb.Persistence
 
             services.AddSingleton<IProductImageFileReadRepository,ProductImageFileReadRepository>();
             services.AddSingleton<IProductImageFileWriteRepository,ProductImageFileWriteRepository>();
+
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IAuthService, AuthService>();
+            services.AddScoped<IExternalAuthentication, AuthService>();
+            services.AddScoped<IInternalAuthentication, AuthService>();
+
+
 
         }
 

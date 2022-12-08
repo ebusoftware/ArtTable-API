@@ -5,6 +5,8 @@ using ArtTableWeb.Infrastructure.Services.Storage.Local;
 using ArtTableWeb.Infrastructure.Services.Storage;
 using Microsoft.Extensions.DependencyInjection;
 using ArtTableWeb.Infrastructure.Enums;
+using ArtTableWeb.Application.Abstractions.Token;
+using ArtTableWeb.Infrastructure.Services.Token;
 
 namespace ArtTableWeb.Infrastructure
 {
@@ -13,6 +15,7 @@ namespace ArtTableWeb.Infrastructure
         public static void AddInfrastructureServices(this IServiceCollection serviceCollection)
         {
             serviceCollection.AddScoped<IStorageService, StorageService>();
+            serviceCollection.AddScoped<ITokenHandler, TokenHandler>();
         }
         public static void AddStorage<T>(this IServiceCollection serviceCollection) where T : Storage, IStorage
         {
