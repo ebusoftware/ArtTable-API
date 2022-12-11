@@ -46,7 +46,7 @@ namespace ArtTableWeb.Persistence.Services
                 await _userManager.UpdateAsync(user);
             }
             else
-                throw new AuthorizationException("Kullanıcı adı veya şifre yanlış.");
+                throw new UserException("Kullanıcı adı veya şifre yanlış.");
         }
     }
 }

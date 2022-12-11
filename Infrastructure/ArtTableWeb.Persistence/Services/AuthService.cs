@@ -65,15 +65,15 @@ namespace ArtTableWeb.Persistence.Services
                 await _userService.UpdateRefreshToken(token.RefreshToken, user, token.Expiration, 15);
                 return token;
             }
-            throw new Exception("Invalid external authentication.");
+            throw new AuthenticationException("Invalid external authentication.");
         }
         public async Task<Token> LoginAsync(string usernameOrEmail, string password, int accessTokenLifeTime)
         {
-            Domain.Entities.Identity.AppUser user = await _userManager.FindByNameAsync(usernameOrEmail);
+            AppUser user = await _userManager.FindByNameAsync(usernameOrEmail);
             if (user == null)
                 user = await _userManager.FindByEmailAsync(usernameOrEmail);
             if (user == null)
-                throw new Exception("Kullanıcı adı veya şifre yanlış.");
+                throw new AuthenticationException("Kullanıcı adı veya şifre yanlış.");
             SignInResult result = await _signInManager.CheckPasswordSignInAsync(user, password, false);
             if (result.Succeeded) //Authentication başarılı!
             {
@@ -81,7 +81,7 @@ namespace ArtTableWeb.Persistence.Services
                 await _userService.UpdateRefreshToken(token.RefreshToken, user, token.Expiration, 15);
                 return token;
             }
-            throw new Exception("Kullanıcı adı veya şifre yanlış.");// Authentication exception oluştur!
+            throw new AuthenticationException("Kullanıcı adı veya şifre yanlış.");// Authentication exception oluştur!
         }
 
         public async Task<Token> RefreshTokenLoginAsync(string refreshToken)
@@ -94,7 +94,7 @@ namespace ArtTableWeb.Persistence.Services
                 return token;
             }
             else
-                throw new Exception("Kullanıcı adı veya şifre yanlış.");
+                throw new AuthenticationException("Kullanıcı adı veya şifre yanlış.");
         }
     }
 }

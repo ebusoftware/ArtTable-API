@@ -23,7 +23,7 @@ namespace ArtTableWeb.API.Controllers
         {
             _mediator = mediator;
         }
-
+        
         [HttpGet]
         public async Task<IActionResult> GetAll([FromQuery] GetAllProductQueryRequest getAllProductQueryRequest)
         {
@@ -36,15 +36,15 @@ namespace ArtTableWeb.API.Controllers
             GetByIdProductQueryResponse response = await _mediator.Send(getByIdProductQueryRequest);
             return Ok(response);
         }
-
+        [Authorize(AuthenticationSchemes = "Admin")]
         [HttpPost]
         public async Task<IActionResult> Post(CreateProductCommandRequest createProductCommandRequest)
         {
             CreateProductCommandResponse response =  await _mediator.Send(createProductCommandRequest);
             return  Ok(response);
         }
-        
 
+        [Authorize(AuthenticationSchemes = "Admin")]
         [HttpPost("[action]")]
         public async Task<IActionResult> Upload([FromQuery] UploadProductImageCommandRequest uploadProductImageCommandRequest)
         {
@@ -52,12 +52,14 @@ namespace ArtTableWeb.API.Controllers
             UploadProductImageCommandResponse response = await _mediator.Send(uploadProductImageCommandRequest);
             return Ok(response);
         }
+        [Authorize(AuthenticationSchemes = "Admin")]
         [HttpDelete("{Id}")]
         public async Task<IActionResult> Delete([FromRoute] DeleteProductCommandRequest deleteProductCommandRequest)
         {
             DeleteProductCommandResponse response = await _mediator.Send(deleteProductCommandRequest);
             return Ok(response);
         }
+        [Authorize(AuthenticationSchemes = "Admin")]
         [HttpPut]
         public async Task<IActionResult> Put([FromBody]UpdateProductCommandRequest updateProductCommandRequest)
         {

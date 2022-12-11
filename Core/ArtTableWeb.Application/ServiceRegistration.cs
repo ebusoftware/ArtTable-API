@@ -1,5 +1,6 @@
 ﻿using ArtTableWeb.Application.Pipelines.Validation;
 using ArtTableWeb.Application.Rules.Category;
+using ArtTableWeb.Application.Rules.User;
 using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
@@ -22,6 +23,7 @@ namespace ArtTableWeb.Application
             collection.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestValidationBehavior<,>));
 
             collection.AddScoped<CategoryBusinessRules>();
+            collection.AddScoped<UserBusinessRules>();
         }
     }
 }
