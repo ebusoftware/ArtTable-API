@@ -29,7 +29,7 @@ namespace ArtTableWeb.Application.Features.Commands.Category.CreateCategory
             await _categoryWriteRepository.AddAsync(new()
             {
                 Description= request.Description,
-                Name= request.Name
+                CategoryName = request.Name
             });
             await _categoryWriteRepository.SaveAsync();
             return new();

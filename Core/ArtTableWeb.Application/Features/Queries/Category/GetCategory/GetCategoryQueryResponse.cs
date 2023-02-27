@@ -9,7 +9,7 @@ namespace ArtTableWeb.Application.Features.Queries.Category.GetCategory
     public class GetCategoryQueryResponse
     {
         public string CategoryId { get; set; }
-        public string Name { get; set; }
+        public string CategoryName { get; set; }
         public string Description { get; set; }
         public bool CategoryStatus { get; set; }
     }

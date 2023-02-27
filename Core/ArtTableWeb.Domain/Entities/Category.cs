@@ -11,7 +11,7 @@ namespace ArtTableWeb.Domain.Entities
 {
     public class Category:BaseEntity
     {
-        public string Name { get; set; }
+        public string CategoryName { get; set; }
         public string Description{ get; set; }
         public bool CategoryStatus { get; set; } = true;
         public ICollection<Product> Products { get; set; }

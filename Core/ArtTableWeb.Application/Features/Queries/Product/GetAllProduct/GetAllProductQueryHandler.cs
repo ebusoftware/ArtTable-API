@@ -4,6 +4,7 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,8 +25,9 @@ namespace ArtTableWeb.Application.Features.Queries.Product.GetAllProduct
             var totalProductCount = _productReadRepository.GetAll().Count();
 
             var products = _productReadRepository.GetAll().Skip(request.Page * request.Size).Take(request.Size)
+
                 .Include(p => p.ProductImageFiles)
-                .Include(p =>p.Category)
+                .Include(c =>c.Category)
                 .Select(p => new 
                 {
                     p.Id,
@@ -37,9 +39,14 @@ namespace ArtTableWeb.Application.Features.Queries.Product.GetAllProduct
                     p.Status,
                     p.CreatedDate,
                     p.UpdatedDate,
-                    p.Category,
+                    p.Category.CategoryName,
                     p.ProductImageFiles
                 }).ToList();
+
+           
+
+
+
             return new()
             {
                 Products= products,

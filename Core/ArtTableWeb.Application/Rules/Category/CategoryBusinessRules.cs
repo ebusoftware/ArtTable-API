@@ -21,7 +21,7 @@ namespace ArtTableWeb.Application.Rules.Category
 
         public async Task CategoryNameCanNotBeDuplicatedWhenInserted(string name)
         {
-            Domain.Entities.Category? result =  _categoryReadRepository.Table.FirstOrDefault(c=>c.Name==name);
+            Domain.Entities.Category? result =  _categoryReadRepository.Table.FirstOrDefault(c=>c.CategoryName == name);
             if (result != null) throw new BusinessException("Kategori Zaten mevcut!");
         }
 
@@ -36,7 +36,7 @@ namespace ArtTableWeb.Application.Rules.Category
         }
         public async Task CategoryRequestsMustBeDifferent(string description,string name)
         {
-            Domain.Entities.Category? result = _categoryReadRepository.Table.FirstOrDefault(c => c.Name == name && c.Description == description);
+            Domain.Entities.Category? result = _categoryReadRepository.Table.FirstOrDefault(c => c.CategoryName == name && c.Description == description);
             if (result != null) throw new BusinessException("Girmiş olduğunuz değerler aynı.");
         }
 

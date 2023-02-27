@@ -2,6 +2,7 @@
 using ArtTableWeb.Application.Repositories;
 using ArtTableWeb.Application.Services;
 using ArtTableWeb.Domain.Entities.Identity;
+using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -25,6 +26,11 @@ namespace ArtTableWeb.Application.Rules.User
         {
             AppUser result = await _userManager.FindByEmailAsync(email);
             if (result != null) throw new BusinessException("Mail adresiyle önceden kayıt olunmuş.");
+        }
+        public async Task UserShouldExistWhenRequested(string id)
+        {
+            AppUser user = await _userManager.FindByIdAsync(id);
+            if (user == null) throw new BusinessException("Kullanıcı mevcut değil.");
         }
     }
 }

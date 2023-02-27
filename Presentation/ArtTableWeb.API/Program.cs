@@ -17,11 +17,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddPersistenceService();
 builder.Services.AddApplicationServices();
 builder.Services.AddInfrastructureServices();
-builder.Services.AddInfrastructureServices();
 
 //Storage
 
-builder.Services.AddStorage<LocalStorage>();
+builder.Services.AddStorage<AzureStorage>();
 
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)//Rollendirme.
@@ -44,11 +43,14 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)//Roll
         };
     });
 
+builder.Services.AddCors(options => options.AddDefaultPolicy(policy =>
 
+policy.WithOrigins("http://localhost:4200", "https://localhost:4200").AllowAnyHeader().AllowAnyMethod().AllowCredentials()
+
+));
 
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -62,8 +64,10 @@ if (app.Environment.IsDevelopment())
 }
 
 app.ConfigureCustomExceptionMiddleware();
-
+app.UseStaticFiles();
+app.UseHttpLogging();
 app.UseHttpsRedirection();
+app.UseCors();
 
 app.UseAuthentication();//kullanıcı doğrula
 

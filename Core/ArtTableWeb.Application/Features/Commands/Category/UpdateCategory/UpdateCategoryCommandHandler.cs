@@ -31,7 +31,7 @@ namespace ArtTableWeb.Application.Features.Commands.Category.UpdateCategory
             Domain.Entities.Category category = await _categoryReadRepository.GetByIdAsync(request.Id);
 
             category.Description = request.Description;
-            category.Name = request.Name;
+            category.CategoryName = request.Name;
             await _categoryWriteRepository.SaveAsync();
             return new();
         }

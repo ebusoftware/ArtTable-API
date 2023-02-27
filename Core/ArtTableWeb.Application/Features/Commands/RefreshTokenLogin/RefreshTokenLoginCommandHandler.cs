@@ -19,6 +19,7 @@ namespace ArtTableWeb.Application.Features.Commands.RefreshTokenLogin
         public async Task<RefreshTokenLoginCommandResponse> Handle(RefreshTokenLoginCommandRequest request, CancellationToken cancellationToken)
         {
             Token token = await _authService.RefreshTokenLoginAsync(request.RefreshToken);
+
             return new()
             {
                 Token = token

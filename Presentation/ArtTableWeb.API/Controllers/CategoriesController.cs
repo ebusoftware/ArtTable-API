@@ -21,7 +21,7 @@ namespace ArtTableWeb.API.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll([FromQuery] GetCategoryQueryRequest getCategoryQueryRequest)
+        public async Task<IActionResult> Get([FromQuery] GetCategoryQueryRequest getCategoryQueryRequest)
         {
             List<GetCategoryQueryResponse> response = await _mediator.Send(getCategoryQueryRequest);
             return Ok(response);

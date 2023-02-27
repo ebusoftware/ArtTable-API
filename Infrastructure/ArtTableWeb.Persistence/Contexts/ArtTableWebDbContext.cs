@@ -1,5 +1,7 @@
 ﻿using ArtTableWeb.Domain.Entities;
 using ArtTableWeb.Domain.Entities.Common;
+using ArtTableWeb.Domain.Entities.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -9,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace ArtTableWeb.Persistence.Contexts
 {
-    public class ArtTableWebDbContext : DbContext
+    public class ArtTableWebDbContext : IdentityDbContext<AppUser, AppRole, string>
     {
         public ArtTableWebDbContext(DbContextOptions options) : base(options)
         { }

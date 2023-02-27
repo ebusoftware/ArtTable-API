@@ -26,7 +26,7 @@ namespace ArtTableWeb.Application.Features.Queries.Product.GetByIdProduct
                 Price=products.Price,
                 Stock=products.Stock,
                 Status=products.Status,
-                CategoryId=products.Category.Name,
+                CategoryId=products.Category.CategoryName,
                 Content=products.Content,
                 Title=products.Title,
 

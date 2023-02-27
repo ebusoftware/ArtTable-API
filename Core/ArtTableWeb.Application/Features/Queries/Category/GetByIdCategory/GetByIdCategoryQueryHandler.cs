@@ -27,7 +27,7 @@ namespace ArtTableWeb.Application.Features.Queries.Category.GetByIdCategory
             return new() 
             {
                 CategoryId=category.Id.ToString(),
-                Name= category.Name,
+                Name= category.CategoryName,
                 CategoryStatus=category.CategoryStatus,
                 Description=category.Description
             };
